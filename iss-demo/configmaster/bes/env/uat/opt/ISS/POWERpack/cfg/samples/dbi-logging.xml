@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+  <Properties>
+    <Property name="APP_DIR" value="/var/log/ISS/POWERpack" />
+    <Property name="LOG_PATTERN">%d{yy/MM/dd HH:mm:ss.SSS} %-5level: %logger{15}: %msg%n</Property>
+    <Property name="APP_NAME">dbi</Property>
+    <Property name="APP_LOG_ROOT" value="${APP_DIR}/${APP_NAME}" />
+  </Properties>
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${LOG_PATTERN}" />
+    </Console>
+
+    <RollingFile name="file"
+      fileName="${APP_LOG_ROOT}_Log"
+      filePattern="${APP_LOG_ROOT}_Log.%i">
+      <PatternLayout pattern="${LOG_PATTERN}" />
+      <Policies>
+        <SizeBasedTriggeringPolicy
+          size="5MB" />
+      </Policies>
+      <DefaultRolloverStrategy min="1" max="9"/>
+    </RollingFile>
+
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="console" />
+      <AppenderRef ref="file" />
+    </Root>
+  </Loggers>
+</Configuration>
